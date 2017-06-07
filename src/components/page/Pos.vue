@@ -39,9 +39,9 @@
             <div class="title">常用商品</div>
             <div class="often-goods-list">
               <ul>
-                <li v-for="good in oftenGoods">
-                  <span v-text="good.goodsName"></span>
-                  <span class="o-price" v-text="'￥'+ good.price+'元'"></span>
+                <li v-for="goods in oftenGoods" @click='add_to_order(goods)'>
+                  <span v-text="goods.goodsName"></span>
+                  <span class="o-price" v-text="'￥'+ goods.price+'元'"></span>
                 </li>
               </ul>
             </div>
