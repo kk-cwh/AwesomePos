@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # pos
 
 > A Vue.js project
