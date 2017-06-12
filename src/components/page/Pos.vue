@@ -20,8 +20,8 @@
               </el-table>
               <div class="div-btn">
                 <el-button type="warning">挂单</el-button>
-                <el-button type="danger">删除</el-button>
-                <el-button type="success">结账</el-button>
+                <el-button type="danger" @click='delAllGoods'>删除</el-button>
+                <el-button type="success" @click='checkout'>结账</el-button>
               </div>
   
             </el-tab-pane>
@@ -156,27 +156,30 @@ export default {
 
   },
   methods: {
+    delAllGoods() {
+      this.tableData = [];
+    },
     deleteRow(index, rows) {
       rows.splice(index, 1);
     },
     add_goods_num(index, rows) {
       rows[index].count++;
       rows.splice(index, 1, rows[index]);
-    },  getSummaries(param) {
-        
-        const sums = [];
-        sums[0] = '总价';
-        sums[1] = 0;
-        sums[2] = 0;
-         var orders = this.tableData;
+    },
+    getSummaries(param) {
+      const sums = [];
+      sums[0] = '总价';
+      sums[1] = 0;
+      sums[2] = 0;
+      var orders = this.tableData;
       var flag = false;
       for (let i = 0; i < orders.length; i++) {
-         sums[1] +=orders[i].count ;
-         sums[2] += (orders[i].count*orders[i].price);
+        sums[1] += orders[i].count;
+        sums[2] += (orders[i].count * orders[i].price);
       }
-        sums[2]='￥'+sums[2];
-        return sums;
-      },
+      sums[2] = '￥' + sums[2];
+      return sums;
+    },
     add_to_order(goods) {
 
       var orders = this.tableData;
@@ -193,10 +196,21 @@ export default {
         goods.count = 1;
         this.tableData.push(goods);
       }
-
-
     },
-    
+    checkout() {
+      if (this.tableData.length != 0) {
+        this.tableData = [];
+        this.$message({
+          message: '结账成功，感谢你又为店里出了一份力!',
+          type: 'success'
+        });
+
+      } else {
+        this.$message.error('不能空结。老板了解你急切的心情！');
+      }
+
+    }
+
   }
 }
 </script>
